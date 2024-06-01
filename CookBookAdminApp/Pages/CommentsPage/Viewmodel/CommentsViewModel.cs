@@ -3,7 +3,9 @@ using CookBookAdminApp.Model;
 using CookBookAdminApp.Services;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Security.Cryptography;
 using System.Windows.Input;
+using RestSharp;
 
 namespace CookBookAdminApp
 {
@@ -15,6 +17,7 @@ namespace CookBookAdminApp
         public bool IsRefreshing { get; set; }
 
         public ICommand RefreshCommand { get; }
+        public ICommand DeleteCommand { get; }
 
         private readonly IApiService _service;
         private readonly int _recipeId;
@@ -27,7 +30,20 @@ namespace CookBookAdminApp
             _recipeId = int.Parse(RecipeId);
             _isInitialized = false;
             RefreshCommand = new Command(async () => await RefreshAsync());
+            DeleteCommand = new Command<commentComponent>(async (c) => await Delete(c));
             _page = page;
+        }
+
+        private async Task Delete(commentComponent comment)
+        {
+            var taskRecipeRespons = _service.DeleteCommentAsync(comment.Id);
+            IsBusy = true;
+            var recipeRespons = await taskRecipeRespons;
+            if (recipeRespons.Status == ResponseStatus.Completed)
+            {
+                await RefreshAsync();
+            }
+            IsBusy = false;
         }
 
         public async Task RefreshAsync()
@@ -74,6 +90,8 @@ namespace CookBookAdminApp
             IsBusy = false;
             _isInitialized = true;
         }
+
+
 
         private async Task<bool> Validate<T>(ResponseValue<T> recipesApi)
         {

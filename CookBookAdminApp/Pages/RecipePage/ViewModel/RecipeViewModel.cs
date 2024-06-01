@@ -40,7 +40,7 @@ namespace CookBookAdminApp
 
         private async Task Delete()
         {
-            var taskRecipeRespons = _service.GetRecipeByIdAsync(Convert.ToInt32(_id));
+            var taskRecipeRespons = _service.DeleteRecipeAsync(Convert.ToInt32(_id));
             IsBusy = true;
             var recipeRespons = await taskRecipeRespons;
             await Shell.Current.GoToAsync("..");

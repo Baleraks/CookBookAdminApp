@@ -6,8 +6,8 @@ namespace CookBookAdminApp.Model
     {
         public ObservableCollection<commentComponent> Comments { get; set; } = new();
 
-        public CommentComposite(string commentText, string userNick, int userId, int firstCommentId) 
-            :base(commentText, userNick, userId, firstCommentId) 
+        public CommentComposite(string commentText, string userNick, int userId, int firstCommentId, int id) 
+            :base(commentText, userNick, userId, firstCommentId, id) 
         {
         }
 

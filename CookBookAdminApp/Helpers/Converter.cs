@@ -100,11 +100,15 @@ namespace CookBookAdminApp.Helpers
             var firsts = comments.Where(x => x.firstcommentid == x.id);
             foreach (var comment in firsts)
             {
-                var component = new CommentComposite(comment.commenttext, comment.userNick, comment.useId, comment.firstcommentid);
+                var component = new CommentComposite(comment.commenttext, comment.userNick, 
+                    comment.useId, comment.firstcommentid,
+                    comment.id);
                 var childs = comments.Where(x => x.firstcommentid == comment.id && x.id != comment.id);
                 foreach (var child in childs)
                 {
-                    component.AddComponent(new CommentLeaf(child.commenttext, child.userNick, child.useId, child.firstcommentid));
+                    component.AddComponent(new CommentLeaf(child.commenttext, child.userNick, 
+                        child.useId, child.firstcommentid,
+                        child.id));
                 }
                 components.Add(component);
             }

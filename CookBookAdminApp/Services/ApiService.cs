@@ -44,6 +44,9 @@ namespace CookBookAdminApp.Services
 
         public async Task<ResponseValue<bool>> DeleteRecipeAsync(int recipeId) => await _api.DeleteRecipeAsync(recipeId);
 
+        public async Task<ResponseValue<bool>> DeleteCommentAsync(int commentId) => await _api.DeleteCommentAsync(commentId);
+
+
         public async Task<ResponseValue<CommentResponse[]>> GetCommentsByRecIdAsync(int recipeId) =>
             await _api.GetCommentsByRecIdAsync(recipeId);
     }

@@ -20,6 +20,7 @@ public partial class CommentsPage : ContentPage
     }
 
     private string _id;
+
     public string ItemId
     {
         get => _id;
@@ -29,7 +30,8 @@ public partial class CommentsPage : ContentPage
 
             if (BindingContext == default)
             {
-                BindingContext = _viewModel = new CommentsViewModel(ItemId,this);
+                BindingContext = _viewModel = new CommentsViewModel(ItemId, this);
             }
         }
     }
+}

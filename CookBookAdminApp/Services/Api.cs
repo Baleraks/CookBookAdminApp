@@ -195,6 +195,36 @@ namespace CookBookAdminApp.Services
             return res;
         }
 
+        public async Task<ResponseValue<bool>> DeleteCommentAsync(int commentId)
+        {
+            ResponseValue<bool> res = new();
+            var logUrl = Constants.Texts.ServerUrl + $"api/DeleteComment";
+            CancellationTokenSource TokenSource = new CancellationTokenSource(5000);
+            try
+            {
+                var client = ClientFactory.CreateClient(logUrl);
+                var request = new RestRequest(logUrl, Method.Delete);
+                request.AddHeader("Authorization", 
+                    "Bearer " + Preferences.Default.Get(Constants.Texts.PreferencesAccessTokenenKey, ""));
+                request.RequestFormat = DataFormat.Json;
+                request.AddJsonBody(new
+                {
+                    Id = commentId,
+                    UserId = Preferences.Default.Get(Constants.Texts.PreferencesUserIdKey, -1)
+                });
+                var response = await client.ExecuteAsync(request, TokenSource.Token);
+                client.Dispose();
+                res = await RequestHandler.HandlerAsync(res, response);
+                TokenSource.Dispose();
+            }
+            catch (Exception e)
+            {
+                res.Exception = e.Message;
+                res.Status = ResponseStatus.Error;
+            }
+            return res;
+        }
+
         public async Task<ResponseValue<byte[]>> GetImageBytesAsync(string imageUrl)
         {
             var res = new ResponseValue<byte[]>();
