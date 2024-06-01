@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:CookBookAdminApp.Model"
+             xmlns:local="clr-namespace:CookBookAdminApp"
+             xmlns:helpers="clr-namespace:CookBookAdminApp.Helpers"
+             x:Class="CookBookAdminApp.RecipePage"
+             x:DataType="local:RecipeViewModel"
+             Title="{Binding Name}">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem IconImageSource="{Static helpers:Constants+Images.ChatIcon}"
+                     Command="{Binding GoToCommentsCommand}"
+                     Order="Primary"/>
+        <ToolbarItem IconImageSource="{Static helpers:Constants+Images.TrashCanIcon}"
+                     Command="{Binding DeleteCommand}"
+                     Order="Primary"/>
+    </ContentPage.ToolbarItems>
+    <Border Margin="-5,0">
+        <ScrollView Margin="5">
+            <VerticalStackLayout>
+                <GraphicsView Grid.Row="0" HeightRequest="300" Drawable="{Binding Image}"/>
+                <Label Text="{Static helpers:Constants+Texts.LabelIngridients}" 
+                           FontFamily="OpenSans-Semibold" 
+                           FontSize="Medium"/>
+                <VerticalStackLayout BindableLayout.ItemsSource="{Binding Ingredients}">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate x:DataType="models:Ingridients">
+                            <Label Text="{Binding FullDate}"/>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </VerticalStackLayout>
+                <Label Text="{Static helpers:Constants+Texts.LabelResult}" 
+                   FontFamily="OpenSans-Semibold" 
+                   FontSize="Medium"
+                   Margin="0,5,0,0"/>
+                <Label Text="{Binding Calories}"/>
+                <Label Text="{Static helpers:Constants+Texts.LabelTags}" 
+                   FontFamily="OpenSans-Semibold" 
+                   FontSize="Medium"
+                   Margin="0,5,0,0"/>
+                <VerticalStackLayout BindableLayout.ItemsSource="{Binding Tags}">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate x:DataType="models:Tag">
+                            <Label Text="{Binding _Tag}"/>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </VerticalStackLayout>
+                <Label Text="{Static helpers:Constants+Texts.LabelRecipes}"
+                               FontFamily="OpenSans-Semibold" 
+                               FontSize="Medium"
+                               Margin="0,5,0,0"/>
+                <VerticalStackLayout BindableLayout.ItemsSource="{Binding Steps}">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate x:DataType="models:Step">
+                            <VerticalStackLayout Margin="0,5">
+                                <Image Source="{Binding Image}" Grid.Row="0"/>
+                                <Label Text="{Binding CookingProcess}" Grid.Row="1"/>
+                            </VerticalStackLayout>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </VerticalStackLayout>
+                <ActivityIndicator Color="{StaticResource Black}" 
+                       IsVisible="{Binding IsBusy}" 
+                       IsRunning="{Binding IsBusy}" 
+                       VerticalOptions="End"/>
+            </VerticalStackLayout>
+        </ScrollView>
+    </Border>
+</ContentPage>

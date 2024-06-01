@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:CookBookAdminApp"
+             xmlns:helpers="clr-namespace:CookBookAdminApp.Helpers"
+             x:Class="CookBookAdminApp.RegistrationPage"
+             x:DataType="local:RegistrationViewModel"
+             Title="{Static helpers:Constants+Texts.TitleRegistration}">
+    <VerticalStackLayout VerticalOptions="CenterAndExpand">
+        <VerticalStackLayout VerticalOptions="CenterAndExpand">
+            <Border VerticalOptions="Center" 
+                    HorizontalOptions="Fill"
+                    Margin="5,2">
+                <Entry Placeholder="{Static helpers:Constants+Texts.PlaceholderLogin}"
+                       Text="{Binding Login}"
+                       x:Name="Login"/>
+            </Border>
+            <Border VerticalOptions="Center" 
+                    HorizontalOptions="Fill"
+                    Margin="5,2">
+                <Entry IsPassword="True"
+                       Placeholder="{Static helpers:Constants+Texts.PlaceholderPassword}"
+                       Text="{Binding Password}"
+                       x:Name="Password"/>
+            </Border>
+            <Border VerticalOptions="Center" 
+                    HorizontalOptions="Fill"
+                    Margin="5,2">
+                <Entry IsPassword="True"
+                       Placeholder="{Static helpers:Constants+Texts.PlaceholderRepPassword}"
+                       Text="{Binding RepPassword}"
+                       x:Name="RepPassword"/>
+            </Border>
+            <Button Text="{Static helpers:Constants+Texts.ButtonRegister}"
+                    Command="{Binding RegistrationCommand}"
+                    Margin="5,0"/>
+        </VerticalStackLayout>
+        <ActivityIndicator Color="{StaticResource Black}" 
+                           IsVisible="{Binding IsBusy}" 
+                           IsRunning="{Binding IsBusy}" 
+                           VerticalOptions="End"/>
+    </VerticalStackLayout>
+</ContentPage>

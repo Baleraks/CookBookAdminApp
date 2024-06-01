@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:helpers="clr-namespace:CookBookAdminApp.Helpers"
+             xmlns:local="clr-namespace:CookBookAdminApp"
+             x:Class="CookBookAdminApp.LoginPage"
+             x:DataType="local:LoginViewModel"
+             Title="{Static helpers:Constants+Texts.TitleLogin}">
+    <VerticalStackLayout VerticalOptions="CenterAndExpand">
+        <Grid VerticalOptions="Center" 
+              RowDefinitions="*,*,*"
+              ColumnDefinitions="*,*">
+
+            <Border VerticalOptions="Center" 
+                    HorizontalOptions="Fill"
+                    Margin="5,2"
+                    Grid.ColumnSpan="2"
+                    Grid.Row="0">
+                <Entry Placeholder="{Static helpers:Constants+Texts.PlaceholderLogin}"
+                   Text="{Binding Nick}"
+                   x:Name="Login"/>
+            </Border>
+            
+            <Border VerticalOptions="Center" 
+                    HorizontalOptions="Fill"
+                    Margin="5,2"
+                    Grid.ColumnSpan="2"
+                    Grid.Row="1">
+                <Entry Placeholder="{Static helpers:Constants+Texts.PlaceholderPassword}"
+                       IsPassword="True"
+                       Text="{Binding Password}"
+                       x:Name="Password"/>
+            </Border>
+
+            <Button Text="{Static helpers:Constants+Texts.ButtonLogIn}"
+                    Command="{Binding LoginCommand}"
+                    VerticalOptions="End"
+                    Grid.Row="2"
+                    Grid.Column="0"
+                    Margin="5,0"/>
+            <Button Text="{Static helpers:Constants+Texts.ButtonRegister}"
+                    Command="{Binding GoToRegister}"
+                    Grid.Column="1"
+                    Grid.Row="2"
+                    Margin="5,0"/>
+        </Grid>
+        <ActivityIndicator Color="{StaticResource Black}" 
+                       IsVisible="{Binding IsBusy}" 
+                       IsRunning="{Binding IsBusy}" 
+                       VerticalOptions="End"/>
+    </VerticalStackLayout>
+</ContentPage>

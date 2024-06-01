@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:CookBookAdminApp.Model"
+             xmlns:helpers="clr-namespace:CookBookAdminApp.Helpers"
+             xmlns:local="clr-namespace:CookBookAdminApp"
+             x:DataType="local:CommentsViewModel"
+             x:Class="CookBookAdminApp.CommentsPage"
+             Title="CommentsPage">
+    <Grid VerticalOptions="FillAndExpand"
+          HorizontalOptions="FillAndExpand"
+          RowDefinitions="*,auto"
+          Margin="10,5">
+        <RefreshView IsRefreshing="{Binding IsRefreshing}"
+                 Command="{Binding RefreshCommand}">
+            <VerticalStackLayout BindableLayout.ItemsSource="{Binding Comments}"
+                        Grid.Row="0">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate x:DataType="models:CommentComposite">
+                        <Border Margin="0,1">
+                            <Grid RowDefinitions="auto, auto, auto">
+                                <Border Margin="5,2">
+                                    <Grid RowDefinitions="auto, auto, auto"
+                                      Margin="5,2">
+                                        <Label Text="{Binding UserNick}"
+                                           Grid.Row="0"/>
+                                        <Label Text="{Binding CommentText}"
+                                           FontSize="Medium"
+                                           Grid.Row="1"
+                                           Margin="5,3"/>
+                                        <VerticalStackLayout BindableLayout.ItemsSource="{Binding Comments}" 
+                                                         Grid.Row="3">
+                                            <BindableLayout.ItemTemplate>
+                                                <DataTemplate x:DataType="models:CommentLeaf">
+                                                    <Border Margin="10,5,5,2">
+                                                        <Grid RowDefinitions="*, *"
+                                                          Margin="5,2">
+                                                            <Label Text="{Binding UserNick}"
+                                                               Grid.Row="0"/>
+                                                            <Label Text="{Binding CommentText}"
+                                                               Grid.Row="1"
+                                                               FontSize="Medium"
+                                                               Margin="5,3"/>
+                                                        </Grid>
+                                                    </Border>
+                                                </DataTemplate>
+                                            </BindableLayout.ItemTemplate>
+                                        </VerticalStackLayout>
+                                    </Grid>
+                                </Border>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </VerticalStackLayout>
+        </RefreshView>
+        <ActivityIndicator Color="{StaticResource Black}" 
+                           IsVisible="{Binding IsBusy}" 
+                           IsRunning="{Binding IsBusy}" 
+                           VerticalOptions="End"
+                           Grid.Row="0"/>
+    </Grid>
+</ContentPage>
