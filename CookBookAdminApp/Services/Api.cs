@@ -30,7 +30,7 @@ namespace CookBookAdminApp.Services
                 var client = ClientFactory.CreateClient(regUrl);
                 var request = new RestRequest(regUrl, Method.Post);
                 request.RequestFormat = DataFormat.Json;
-                request.AddJsonBody(new { Nick = Nick, HashPassword = Password });
+                request.AddJsonBody(new { Nick = Nick, HashPassword = Password, Isadmin = true });
                 var response = await client.ExecuteAsync(request, TokenSource.Token);
                 client.Dispose();
                 res = await RequestHandler.HandlerAsync<string>(res, response);
