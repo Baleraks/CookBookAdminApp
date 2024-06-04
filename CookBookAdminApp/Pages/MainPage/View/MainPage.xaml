@@ -9,7 +9,7 @@
              x:Class="CookBookAdminApp.MainPage"
              Title="{Static helpers:Constants+Texts.TitleMain}">
     <Grid Margin="0,5"
-          RowDefinitions="auto,*">
+          RowDefinitions="auto,*,auto">
         <Border Margin="10,5"
                 Grid.Row="0">
             <SearchBar x:Name="searchBar"
@@ -18,79 +18,75 @@
                            SearchCommandParameter="{Binding Text,Source={x:Reference searchBar}}">
             </SearchBar>
         </Border>
-        <RefreshView IsRefreshing="{Binding IsRefreshing}"
-                         Command="{Binding RefreshCommand}"
-                         Grid.Row="1"
-                         VerticalOptions="StartAndExpand"
-                         windows:RefreshView.RefreshPullDirection="BottomToTop">
-            <ScrollView>
-                <CollectionView x:Name="RecipeList" 
-                                SelectionMode="None"
-                                ItemsSource="{Binding RecipesList}"
-                                RemainingItemsThresholdReached="RecipeList_RemainingItemsThresholdReached"
-                                RemainingItemsThreshold="3"
-                                VerticalOptions="StartAndExpand">
-                    <CollectionView.ItemsLayout>
-                        <LinearItemsLayout Orientation="Vertical"/>
-                    </CollectionView.ItemsLayout>
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate x:DataType="model:Recipe">
-                            <Border Margin="10,1">
-                                <Border.GestureRecognizers>
-                                    <TapGestureRecognizer 
+        <CollectionView x:Name="RecipeList" 
+                        SelectionMode="None"
+                        ItemsSource="{Binding RecipesList}"
+                        RemainingItemsThresholdReached="RecipeList_RemainingItemsThresholdReached"
+                        RemainingItemsThreshold="1"
+                        VerticalOptions="StartAndExpand"
+                        Grid.Row="1">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Vertical"/>
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:Recipe">
+                        <Border Margin="10,1">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer 
                                     Command="{Binding Source={RelativeSource AncestorType={x:Type local:MainViewModel}},
                                     Path=SelectRecipeCommand}" 
                                     CommandParameter="{Binding .}"/>
-                                </Border.GestureRecognizers>
-                                <Grid ColumnDefinitions="*,4*,*,*"
+                            </Border.GestureRecognizers>
+                            <Grid ColumnDefinitions="*,4*,*,*"
                                       RowDefinitions="*,*">
-                                    <GraphicsView HeightRequest="50"
+                                <GraphicsView HeightRequest="50"
                                                   WidthRequest="50" 
                                                   Drawable="{Binding Image}"
                                                   Grid.Column="0"
                                                   Grid.RowSpan="2"/>
-                                    <Label Text="{Binding Name}"
+                                <Label Text="{Binding Name}"
                                            FontSize="Medium"
                                            Grid.Column="1"
                                            Grid.Row="0"
                                            HorizontalOptions="Center"/>
-                                    <Label Text="{Binding Calories}"
+                                <Label Text="{Binding Calories}"
                                            Grid.Row="1"
                                            Grid.Column="1"
                                            HorizontalOptions="Center"/>
-                                    <Image Source="{Static helpers:Constants+Images.LikeIcon}" 
+                                <Image Source="{Static helpers:Constants+Images.LikeIcon}" 
                                            Grid.Column="2"
                                            Grid.Row="0"
                                            MaximumHeightRequest="30"
                                            MaximumWidthRequest="30"
                                            HorizontalOptions="End"/>
-                                    <Label Text="{Binding Likes}"
+                                <Label Text="{Binding Likes}"
                                            Grid.Column="3"
                                            Grid.Row="0"
                                            VerticalOptions="Center"
                                            HorizontalOptions="Center"/>
-                                    <Image Source="{Static helpers:Constants+Images.ReportsIcon}" 
+                                <Image Source="{Static helpers:Constants+Images.ReportsIcon}" 
                                            Grid.Column="2"
                                            Grid.Row="1"
                                            MaximumHeightRequest="30"
                                            MaximumWidthRequest="30"
                                            HorizontalOptions="End"/>
-                                    <Label Text="{Binding Reports}"
+                                <Label Text="{Binding Reports}"
                                            Grid.Column="3"
                                            Grid.Row="2"
                                            VerticalOptions="Center"
                                            HorizontalOptions="Center"/>
-                                </Grid>
-                            </Border>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
-            </ScrollView>
-        </RefreshView>
-        <ActivityIndicator Color="{StaticResource Black}" 
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <ActivityIndicator Color="{StaticResource Black}" 
                                IsVisible="{Binding IsBusy}" 
                                IsRunning="{Binding IsBusy}" 
                                Grid.Row="1"
                                VerticalOptions="End"/>
+        <Button Text="Обновить"
+                Command="{Binding RefreshCommand}"
+                Grid.Row="2"/>
     </Grid>
 </ContentPage>

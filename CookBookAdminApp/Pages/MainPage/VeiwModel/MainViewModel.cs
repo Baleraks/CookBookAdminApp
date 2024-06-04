@@ -78,7 +78,7 @@ namespace CookBookAdminApp
 
         private bool _isInitialized;
         private int _from = 0;
-        private const int _to = 10;
+        private const int _to = 15;
 
         public async Task InitAsync()
         {

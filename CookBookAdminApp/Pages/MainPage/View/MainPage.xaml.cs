@@ -21,6 +21,7 @@ namespace CookBookAdminApp
         protected override void OnNavigatedTo(NavigatedToEventArgs args)
         {
             base.OnNavigatedTo(args);
+            _ = Task.Run(viewModel.InitAsync);
         }
 
         private void RecipeList_RemainingItemsThresholdReached(object sender, EventArgs e)
