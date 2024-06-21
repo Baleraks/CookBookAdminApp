@@ -40,7 +40,7 @@
             public const string PlaceholderRepPassword = "Повторите пароль";
             public const string PlaceholderComment = "Коментарий";
 
-            public const string PopUpTitle = "Oшибка";
+            public const string PopUpTitle = "Уведомление";
             public const string PopUpCancel = "Ок";
             public const string ToastAddToFavorites = "Рецепт добавлен в избраное";
             public const string ToastAddToFavoritesError = "Рецепт был добавлен ранее";
